@@ -1,15 +1,11 @@
 const path = require('path');
 const webpack = require('webpack');
-const dotenv = require('dotenv');
 
 module.exports = {
-  entry: {
-    'home': './client/index.js',
-    'workouts': './client/splash.js'
-  },
+  entry: './client/index.js',
   mode: process.env.NODE_ENV,
   output: {
-    filename: '[name]bundle.js',
+    filename: 'bundle.js',
     path: path.resolve(__dirname, 'build'),
     // chunkFileName: '[id].chunk.js'
   },
@@ -20,11 +16,8 @@ module.exports = {
     proxy: {
       '/signup': 'http://localhost:3000', // any front end element which fetches from express needs to be rerouted. it will by default try to fetch to 8080.
       '/login': 'http://localhost:3000', // any front end element which fetches from express needs to be rerouted. it will by default try to fetch to 8080.
-      '/myworkouts': 'http://localhost:3000',
-      '/workouts': 'http://localhost:3000',
-      '/newworkout': 'http://localhost:3000',
-      '/userworkouts': 'http://localhost:3000'
-      // "*": "http://[::1]:3000"
+      '/user/signin/callback': 'http://localhost:3000',
+      '/user/': 'http://localhost:3000',
     }
   },
   module: {
@@ -39,18 +32,6 @@ module.exports = {
           }
         },
       },
-      // {
-      //   test: /\.s[ac]ss$/i,
-      //   use: [
-      //     // THIS ORDER MATTERS !!!!
-      //     // Creates `style` nodes from JS strings
-      //     'style-loader',
-      //     // Translates CSS into CommonJS
-      //     'css-loader',
-      //     // Compiles Sass to CSS
-      //     'sass-loader',
-      //   ],
-      // },
     ]
   },
   plugins: [
