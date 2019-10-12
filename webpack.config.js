@@ -1,4 +1,6 @@
 const path = require('path');
+const webpack = require('webpack');
+const dotenv = require('dotenv');
 
 module.exports = {
   entry: {
@@ -50,5 +52,10 @@ module.exports = {
       //   ],
       // },
     ]
-  }
-}
+  },
+  plugins: [
+    new webpack.DefinePlugin({
+      'CLIENT_ID': JSON.stringify(process.env.CLIENT_ID)
+    })
+  ]
+};

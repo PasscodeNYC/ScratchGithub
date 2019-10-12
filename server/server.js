@@ -47,6 +47,12 @@ app.get('/userworkouts', grabExistingUserWorkouts, (req, res) => {
   res.send(res.locals.existingWorkouts);
 })
 
+//OAUTH
+
+app.get('/githubInitOAUTH', (req, res) => {
+  console.log("yay");
+})
+
 app.listen(3000, () => {
   console.log(`listening on port 3000`);
 })

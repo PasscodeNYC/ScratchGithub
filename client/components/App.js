@@ -3,6 +3,14 @@ import React from 'react';
 
 
 const App = () => {
+
+  // const handleClick = () => {
+  //   fetch('/githubInitOAUTH')
+  //     .then(response => console.log(response));
+  // }
+
+  console.log("client id from env variables,", CLIENT_ID);
+
   return (
     <div>
       <h1>log in:</h1>
@@ -17,6 +25,7 @@ const App = () => {
         <input name="password" type="password" placeholder="password"></input>
         <input type="submit" value="sign up"></input>
       </form>
+      <a href={`https://github.com/login/oauth/authorize?client_id=${CLIENT_ID}`}>sign in with github</a>
     </div>
   )
 }
