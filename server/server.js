@@ -5,6 +5,7 @@ const app = express();
 const path = require('path');
 const request = require('superagent');
 const dotenv = require('dotenv');
+// const oautha = require('oautha');
 dotenv.config();
 
 app.use(cors()); // add the cors http header to every request by default - makes all routes accessible for all domains.
@@ -19,6 +20,7 @@ app.use('/build', express.static(path.join(__dirname, '../build'))); //static se
 
 app.get('/', (req, res) => {
   // console.log('serving');
+  // oautha.dareToTryMe();
   res.sendFile(path.join(__dirname, '../index.html'));
 })
 
