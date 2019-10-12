@@ -7,8 +7,8 @@
     "start": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run build",
-    "build": "NODE_ENV=production CLIENT_ID=e9a2f350549bfa35026b webpack",
-    "dev": "NODE_ENV=development CLIENT_ID=e9a2f350549bfa35026b webpack-dev-server --open --hot & nodemon server/server.js"
+    "build": "NODE_ENV=production CLIENT_ID=YOURCLIENTIDFROMGITHUBHERE webpack",
+    "dev": "NODE_ENV=development CLIENT_ID=YOURCLIENTIDFROMGITHUBHERE webpack-dev-server --open --hot & nodemon server/server.js"
   },
   "nodemonConfig": {
     "ignore": [
