@@ -1,10 +1,4 @@
-{/* <a id="loginbtn" onClick={loginWithFacebook}>sign in with facebook</a> */ }
-
-const newLink = document.createElement('a');
-newLink.setAttribute('id', 'loginbtn');
-newLink.setAttribute('onClick', 'loginWithFacebook');
-// newLink.textContent('hi');
-// document.body.appendChild(newLink);
+const request = require('superagent');
 
 window.fbAsyncInit = function () {
   FB.init({
@@ -30,7 +24,20 @@ window.fbAsyncInit = function () {
 
 export default function loginWithFacebook() {
   FB.login(response => {
-    console.log(response);
+    const { authResponse: { accessToken, userID } } = response;
+
+    request
+      .post('/login-with-facebook')
+      .send(JSON.stringify({ accessToken, userID }))
+      .set({ 'Content-Type': 'application/json' })
+      .then(res => {
+        console.log("RES:", res);
+      })
+
+    FB.api('/me', (response) => {
+      console.log(JSON.stringify(response));
+    })
+
   }, { scope: 'public_profile, email' })
   return false;
 }

@@ -18,6 +18,7 @@ module.exports = {
       '/login': 'http://localhost:3000', // any front end element which fetches from express needs to be rerouted. it will by default try to fetch to 8080.
       '/user/signin/callback': 'http://localhost:3000',
       '/user/': 'http://localhost:3000',
+      '/login-with-facebook': 'http://localhost:3000'
     }
   },
   module: {

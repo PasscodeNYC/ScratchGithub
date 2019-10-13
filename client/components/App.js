@@ -11,7 +11,8 @@ const App = () => {
 
   // console.log("client id from env variables,", CLIENT_ID);
 
-  const loginWithFacebook = () => {
+  const loginWithFacebook = (e) => {
+    // e.preventDefault;
     login();
   }
 

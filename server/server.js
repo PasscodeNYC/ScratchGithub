@@ -26,7 +26,14 @@ app.get('/', (req, res) => {
 
 //OAUTH
 
-app.get('/user/signin/callback', (req, res) => {
+//GITHUB
+
+const callbackURL = 'you define this on github';
+const CLIENT_ID = 'you define this in package.json scripts';
+const CLIENT_SECRET = 'you define this in package.json scripts';
+const userAgent = 'you define this here';
+
+app.get(callbackURL, (req, res) => {
   console.log("yay");
   const { query } = req;
   const { code } = query;
@@ -42,11 +49,11 @@ app.get('/user/signin/callback', (req, res) => {
     })
   }
 
-  console.log("what is my client ID", process.env.CLIENT_ID);
+  console.log("what is my client ID", CLIENT_ID);
   // if success, // make outgoing POST request with superagent.
   request
     .post('https://github.com/login/oauth/access_token')
-    .send({ client_id: process.env.CLIENT_ID, client_secret: process.env.CLIENT_SECRET, code: code })
+    .send({ client_id: CLIENT_ID, client_secret: CLIENT_SECRET, code: code })
     .set('Accept', 'application/json')
     .then(result => {
       const data = result.body; // this contains our access token
@@ -61,7 +68,7 @@ app.get('/user/signin/callback', (req, res) => {
         .get('https://api.github.com/user')
         .set({
           'Authorization': `token ${accessToken}`,
-          'User-Agent': 'chriswillsflannery'
+          'User-Agent': userAgent
         })
         .then(result => {
           console.log("in result in 2nd oauth get request");
@@ -69,29 +76,39 @@ app.get('/user/signin/callback', (req, res) => {
           res.send(result.body);
         })
         .catch(err => console.log('error: get request failed,', err));
-      console.log('in get');
+      // console.log('in get');
 
     })
     .catch(err => console.log("error: post request failed.", err.stack));
 
 });
 
-// app.get('/user', (req, res) => {
-//   request
-//     .get('https://api.github.com/user')
-//     .set({
-//       'Authorization': `token 2716d88f661a3749f5e6f4c196894bd38f1cb0a8`,
-//       'User-Agent': 'chriswillsflannery'
-//     })
-//     .then(result => {
-//       console.log("in result in 2nd oauth get request");
-//       console.log("response data from github: ", result.body);
-//       res.send(result.body);
-//     })
-//     .catch(err => console.log('error: get request failed,', err));
-//   console.log('in get');
-// })
+// FACEBOOK
 
+app.post('/login-with-facebook', async (req, res) => {
+  console.log('in post request login-with-facebook');
+  const { accessToken, userID } = req.body;
+  //here we would usually store accessTOken and userID in a database.
+  // first we need to validate whether they are correct.
+  console.log("access token", accessToken);
+  console.log("userID", userID);
+
+  const data = await request.get(`https://graph.facebook.com/v1.0/me?access_token=${accessToken}&method=get&pretty=0&sdk=joey&suppress_http_code=1`);
+  console.log("what is my data?", data);
+
+  // const json = await data.json();
+
+  // if (json.id === userID) {
+  //   //valid user
+  //   console.log("valid user! json:", json);
+  //   // check here if the user exists in DB, then login, else register and then login
+  // } else {
+  //   //impersonator!
+  //   //just send a warning or ban their IP address or whatver you want to do 
+  //   console.log("uh oh, looks like someone is trying to impersonate you!");
+  // }
+
+})
 
 app.listen(3000, () => {
   console.log(`listening on port 3000`);

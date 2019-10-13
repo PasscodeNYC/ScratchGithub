@@ -7,8 +7,8 @@
     "start": "nodemon server/server.js",
     "test": "echo \"Error: no test specified\" && exit 1",
     "prestart": "npm run build",
-    "build": "NODE_ENV=production CLIENT_ID=e9a2f350549bfa35026b webpack",
-    "dev": "NODE_ENV=development CLIENT_ID=e9a2f350549bfa35026b webpack-dev-server --open --hot & nodemon server/server.js"
+    "build": "NODE_ENV=production webpack",
+    "dev": "NODE_ENV=development webpack-dev-server --open --hot & nodemon server/server.js"
   },
   "nodemonConfig": {
     "ignore": [
@@ -26,6 +26,8 @@
     "node-fetch": "^2.6.0",
     "nodemon": "^1.19.3",
     "oautha": "0.0.2",
+    "passport": "^0.4.0",
+    "passport-github": "^1.1.0",
     "pg": "^7.12.1",
     "react": "^16.10.2",
     "react-dom": "^16.10.2",
